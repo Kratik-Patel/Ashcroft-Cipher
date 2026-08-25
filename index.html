@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Ashcroft Cipher - A Detective Novel</title>
+
+<style>
+
+/* ==================================================
+   IMPORTED FONTS
+   ================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Special+Elite&display=swap');
+
+
+/* ==================================================
+   MAIN WEBSITE DESIGN
+   ================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at center, #3d3026, #17110d 75%);
+    color: #2c2019;
+    font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+
+/* ==================================================
+   HEADER
+   ================================================== */
+
+header {
+    background: #1c1410;
+    color: #ead8b5;
+
+    padding: 25px 20px;
+
+    text-align: center;
+
+    border-bottom: 3px solid #b89152;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 100;
+}
+
+header h1 {
+    font-family: "Cinzel", serif;
+
+    margin: 0;
+
+    font-size: clamp(24px, 4vw, 45px);
+
+    letter-spacing: 4px;
+
+    color: #e8d0a0;
+}
+
+header p {
+    margin-top: 8px;
+
+    font-family: "Special Elite", monospace;
+
+    font-size: 13px;
+
+    color: #bda373;
+
+    letter-spacing: 2px;
+}
+
+
+/* ==================================================
+   MAIN BOOK
+   ================================================== */
+
+.book {
+    width: 90%;
+    max-width: 1100px;
+
+    margin: 40px auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d7c49f 0%,
+            #eadbbd 4%,
+            #f5ead2 8%,
+            #f5ead2 92%,
+            #eadbbd 96%,
+            #d7c49f 100%
+        );
+
+    min-height: 700px;
+
+    box-shadow:
+        0 0 20px black,
+        0 20px 70px rgba(0,0,0,0.8);
+
+    position: relative;
+
+    padding: 50px 10%;
+}
+
+
+/* ==================================================
+   VERTICAL LINES
+   ================================================== */
+
+.book::before,
+.book::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    width: 2px;
+
+    background: #9b7746;
+
+    opacity: 0.55;
+}
+
+.book::before {
+    left: 6%;
+}
+
+.book::after {
+    right: 6%;
+}
+
+
+/* ==================================================
+   HORIZONTAL DECORATIVE LINE
+   ================================================== */
+
+.decorative-line {
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            #8b6838,
+            #c09a5a,
+            #8b6838,
+            transparent
+        );
+
+    margin: 25px 0;
+}
+
+
+/* ==================================================
+   TITLE PAGE
+   ================================================== */
+
+.title-page {
+    text-align: center;
+
+    padding: 70px 20px;
+}
+
+.title-page h2 {
+    font-family: "Cinzel", serif;
+
+    font-size: clamp(40px, 8vw, 85px);
+
+    color: #542020;
+
+    margin-bottom: 10px;
+
+    letter-spacing: 5px;
+}
+
+.title-page h3 {
+    font-family: "Special Elite", monospace;
+
+    font-weight: normal;
+
+    letter-spacing: 3px;
+
+    color: #70552f;
+}
+
+
+/* ==================================================
+   TABLE OF CONTENTS
+   ================================================== */
+
+.contents {
+    margin-top: 50px;
+}
+
+.contents h2 {
+    text-align: center;
+
+    font-family: "Cinzel", serif;
+
+    color: #4f241f;
+
+    font-size: 35px;
+}
+
+.contents button {
+    width: 100%;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 1px solid #a98a5a;
+
+    padding: 15px;
+
+    text-align: left;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    color: #2e2118;
+
+    transition: 0.3s;
+}
+
+.contents button:hover {
+    background: #d8c298;
+
+    padding-left: 30px;
+
+    color: #641f24;
+}
+
+
+/* ==================================================
+   CHAPTER PAGE
+   ================================================== */
+
+.chapter {
+    display: none;
+
+    animation: fadeIn 0.7s;
+}
+
+.chapter.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ==================================================
+   CHAPTER NUMBER
+   ================================================== */
+
+.chapter-number {
+    text-align: center;
+
+    font-family: "Special Elite", monospace;
+
+    color: #7b5935;
+
+    letter-spacing: 4px;
+
+    margin-top: 15px;
+}
+
+
+/* ==================================================
+   CHAPTER TITLE
+   ================================================== */
+
+.chapter h2 {
+
+    text-align: center;
+
+    font-family: "Cinzel", serif;
+
+    font-size: clamp(32px, 5vw, 58px);
+
+    color: #57211f;
+
+    margin-top: 15px;
+
+    margin-bottom: 25px;
+
+    line-height: 1.2;
+}
+
+
+/* ==================================================
+   DECORATIVE IMAGE AREA
+   ================================================== */
+
+.mystery-image {
+
+    height: 230px;
+
+    width: 100%;
+
+    margin-bottom: 35px;
+
+    border-top: 3px solid #9a7442;
+    border-bottom: 3px solid #9a7442;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #70513a,
+            #2b1f18
+        );
+
+    color: #e5c98e;
+
+    font-family: "Cinzel", serif;
+
+    font-size: clamp(28px, 6vw, 70px);
+
+    letter-spacing: 8px;
+
+    text-shadow: 3px 3px 8px black;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* Decorative circles */
+
+.mystery-image::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    border: 5px solid #c59a5d;
+
+    border-radius: 50%;
+
+    opacity: 0.4;
+
+}
+
+.mystery-image::after {
+
+    content: "✦";
+
+    position: absolute;
+
+    font-size: 160px;
+
+    opacity: 0.12;
+
+}
+
+
+/* ==================================================
+   STORY TEXT
+   ================================================== */
+
+.chapter p {
+
+    font-size: 23px;
+
+    line-height: 1.8;
+
+    text-align: justify;
+
+    margin-bottom: 25px;
+
+    color: #2d2118;
+}
+
+
+/* First letter design */
+
+.chapter p:first-of-type::first-letter {
+
+    float: left;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 75px;
+
+    line-height: 55px;
+
+    padding-right: 10px;
+
+    color: #6a2424;
+}
+
+
+/* ==================================================
+   NAVIGATION BUTTONS
+   ================================================== */
+
+.navigation {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 45px;
+
+    padding-top: 25px;
+
+    border-top: 2px solid #a6804d;
+}
+
+.navigation button {
+
+    background: #3b211b;
+
+    color: #ead5ac;
+
+    border: 1px solid #bd985a;
+
+    padding: 14px 25px;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.navigation button:hover {
+
+    background: #6a2b2b;
+
+    transform: translateY(-2px);
+}
+
+
+/* ==================================================
+   HOME BUTTON
+   ================================================== */
+
+.home-button {
+
+    display: block;
+
+    margin: 40px auto 0;
+
+    background: #6a2b2b;
+
+    color: #f4dfb8;
+
+    border: none;
+
+    padding: 15px 30px;
+
+    font-family: "Cinzel", serif;
+
+    cursor: pointer;
+}
+
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+footer {
+
+    text-align: center;
+
+    color: #c8a875;
+
+    padding: 30px;
+
+    font-family: "Special Elite", monospace;
+}
+
+
+/* ==================================================
+   MOBILE DESIGN
+   ================================================== */
+
+@media (max-width: 700px) {
+
+    .book {
+        width: 96%;
+        padding: 35px 8%;
+    }
+
+    .chapter p {
+        font-size: 20px;
+        text-align: left;
+    }
+
+    .navigation {
+        flex-direction: column;
+    }
+
+    .navigation button {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     WEBSITE HEADER
+     ================================================== -->
+
+<header>
+
+    <h1>THE ASHCROFT CIPHER</h1>
+
+    <p>A DETECTIVE NOVEL OF ELIAS VALE</p>
+
+</header>
+
+
+
+<!-- ==================================================
+     MAIN BOOK
+     ================================================== -->
+
+<main class="book">
+
+
+<!-- ==================================================
+     HOME PAGE
+     ================================================== -->
+
+<section id="home">
+
+    <div class="title-page">
+
+        <div class="decorative-line"></div>
+
+        <h2>THE ASHCROFT<br>CIPHER</h2>
+
+        <h3>A MYSTERY OF CLOCKS, SECRETS AND SHADOWS</h3>
+
+        <div class="decorative-line"></div>
+
+    </div>
+
+
+    <div class="contents">
+
+        <h2>TABLE OF CONTENTS</h2>
+
+        <button onclick="showChapter(1)">
+            Chapter 1 — The Clockmaker's Last Hour
+        </button>
+
+        <button onclick="showChapter(2)">
+            Chapter 2 — The Number Seventeen
+        </button>
+
+        <button onclick="showChapter(3)">
+            Chapter 3 — The House Without Shadows
+        </button>
+
+        <button onclick="showChapter(4)">
+            Chapter 4 — The Girl in the Photograph
+        </button>
+
+        <button onclick="showChapter(5)">
+            Chapter 5 — Beneath the River
+        </button>
+
+        <button onclick="showChapter(6)">
+            Chapter 6 — The Mentor's Secret
+        </button>
+
+        <button onclick="showChapter(7)">
+            Chapter 7 — The Gallery of Faces
+        </button>
+
+        <button onclick="showChapter(8)">
+            Chapter 8 — The Sister Who Never Died
+        </button>
+
+        <button onclick="showChapter(9)">
+            Chapter 9 — Ashcroft Reborn
+        </button>
+
+        <button onclick="showChapter(10)">
+            Chapter 10 — The Assistant's Past
+        </button>
+
+        <button onclick="showChapter(11)">
+            Chapter 11 — The Inspector's Betrayal
+        </button>
+
+        <button onclick="showChapter(12)">
+            Chapter 12 — The Keeper's Library
+        </button>
+
+        <button onclick="showChapter(13)">
+            Chapter 13 — The Last Lesson
+        </button>
+
+        <button onclick="showChapter(14)">
+            Chapter 14 — The Empty House
+        </button>
+
+        <button onclick="showChapter(15)">
+            Chapter 15 — The Seventeenth Name
+        </button>
+
+        <button onclick="showChapter(16)">
+            Chapter 16 — The Ashcroft Cipher
+        </button>
+
+        <button onclick="showChapter(17)">
+            Chapter 17 — The Final Door
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 1
+     ================================================== -->
+
+<section class="chapter" id="chapter1">
+
+    <div class="chapter-number">
+        CHAPTER I
+    </div>
+
+    <h2>The Clockmaker's Last Hour</h2>
+
+    <div class="decorative-line"></div>
+
+    <div class="mystery-image">
+        CLOCK
+    </div>
+
+    <p>
+        The rain had been falling over London for three days without pause, as though the city had been placed beneath a vast grey curtain and forgotten there. By the third evening, the streets had become rivers of reflected lamplight, the gutters were swollen with black water, and every passing carriage seemed to emerge from the mist only to vanish into it again. Detective Elias Vale had spent most of the day indoors, which was unusual for a man who disliked being still. He sat in the narrow room above his office on Bell Street, surrounded by books, newspapers, unfinished notes, and the remains of a fire that had surrendered hours earlier.
+    </p>
+
+    <p>
+        A sudden knock disturbed the silence. Three sharp sounds, followed by nothing. Vale descended the narrow staircase and opened the front door to find a boy standing in the rain, his coat soaked and his expression frightened. The boy held out an envelope. This is for you, he said. The paper was perfectly dry, though everything around him was wet. On its front was a circle containing the number 17.
+    </p>
+
+    <p>
+        Inside were four words: THE CLOCK HAS STOPPED. On the back was a name Elias Vale had not heard in seventeen years: SILAS WREN.
+    </p>
+
+    <p>
+        Silas Wren's shop stood near the river in a part of London that seemed forgotten by the rest of the city. When Vale arrived, Inspector Thomas Rowan was already there. Hundreds of clocks covered the walls, but every one of them had stopped. At the centre of the room sat Silas Wren, dead in his chair. The doctor suspected poison. There was no sign of a struggle.
+    </p>
+
+    <p>
+        Vale examined Wren's right hand. It remained partly closed, deliberately so. Inside was a tiny brass key engraved with the number 17. Moments later, a hidden compartment beneath the floor opened with a mechanical click. Inside stood a black wooden box marked: FOR ELIAS VALE.
+    </p>
+
+    <p>
+        The box contained a black leather notebook. On its first page were the words: TO THE DETECTIVE WHO STILL BELIEVES THE PAST IS DEAD. Beneath them was the same circle and the number 17. Somewhere in London, someone had begun counting backward.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="goHome()">← Contents</button>
+
+        <button onclick="showChapter(2)">
+            Chapter 2 →
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 2
+     ================================================== -->
+
+<section class="chapter" id="chapter2">
+
+    <div class="chapter-number">
+        CHAPTER II
+    </div>
+
+    <h2>The Number Seventeen</h2>
+
+    <div class="mystery-image">
+        XVII
+    </div>
+
+    <p>
+        Morning arrived over London without bringing any real light. Elias Vale returned to Bell Street carrying the black notebook and the brass key. His assistant, Mara Bell, was already waiting. Together they opened the notebook and discovered a list of names. The first was Silas Wren. The second was Professor Adrian Holt. The third was Lady Eleanor Ashcroft.
+    </p>
+
+    <p>
+        The name Ashcroft forced Vale to speak of a case he had avoided for seventeen years. Ashcroft Hall had burned to the ground, killing five people. Vale had investigated the fire as a young detective and discovered evidence suggesting it was no accident. Then the evidence disappeared, and the investigation was closed by people powerful enough to ensure that no one reopened it.
+    </p>
+
+    <p>
+        Inspector Rowan arrived with news that made the notebook impossible to ignore. Professor Adrian Holt had been found dead at the Royal Archives, apparently poisoned. In Holt's hand was another brass key, engraved with the number 16.
+    </p>
+
+    <p>
+        Among the files on Holt's table was a photograph taken outside Ashcroft Hall. Seventeen people stood together in the picture. Silas Wren was there. Adrian Holt was there. Lady Eleanor Ashcroft stood near the centre. A younger Elias Vale appeared at the edge.
+    </p>
+
+    <p>
+        Someone had crossed out Wren and Holt. Beneath the photograph were four words: FIFTEEN REMAIN. Vale understood then that the numbers were not merely symbols. Someone was counting down, and every death was pulling him deeper into the Ashcroft case.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(1)">← Chapter 1</button>
+
+        <button onclick="showChapter(3)">Chapter 3 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 3
+     ================================================== -->
+
+<section class="chapter" id="chapter3">
+
+    <div class="chapter-number">
+        CHAPTER III
+    </div>
+
+    <h2>The House Without Shadows</h2>
+
+    <div class="mystery-image">
+        ASHCROFT
+    </div>
+
+    <p>
+        Lady Eleanor Ashcroft lived in a house that seemed designed to discourage honesty. Behind its iron gates and dark windows, Vale and Mara found an old woman who still possessed the dignity of a powerful family but none of its security.
+    </p>
+
+    <p>
+        When Vale showed her the photograph, Lady Eleanor immediately understood what had happened. She admitted that the seventeen people had gathered at Ashcroft years earlier because each had received a threat. Someone knew what had happened to a fourteen-year-old girl named Clara Mercer, who had disappeared shortly before the fire.
+    </p>
+
+    <p>
+        Before Lady Eleanor could explain further, the lights went out. A scream came from the upper floor. Vale and Mara rushed upstairs to find a room empty and a window open to the storm. Written on the wall in ash were the words: SHE REMEMBERS THE NIGHT.
+    </p>
+
+    <p>
+        When Mara asked who remembered, Lady Eleanor slowly turned toward Vale. You do, she said. The answer opened a door in Vale's memory. He remembered smoke, fire, and a frightened child's voice, but nothing beyond it.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(2)">← Chapter 2</button>
+
+        <button onclick="showChapter(4)">Chapter 4 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 4
+     ================================================== -->
+
+<section class="chapter" id="chapter4">
+
+    <div class="chapter-number">
+        CHAPTER IV
+    </div>
+
+    <h2>The Girl in the Photograph</h2>
+
+    <div class="mystery-image">
+        PORTRAIT
+    </div>
+
+    <p>
+        Vale spent the night searching his memories of Clara Mercer. The next clue in Wren's notebook led him and Mara to Dr. Lucian Grey, a private physician who had been connected to Ashcroft.
+    </p>
+
+    <p>
+        Grey admitted that Clara's father had uncovered corruption involving wealthy families, businesses, and public officials. His death had been presented as an accident, but it had been murder. Clara had discovered some of his evidence and gone to Ashcroft to confront the people responsible.
+    </p>
+
+    <p>
+        Before Grey could reveal where Clara had gone, a shot shattered the window. The doctor collapsed, badly wounded. With his remaining strength, he pointed toward the river and whispered, Beneath the river.
+    </p>
+
+    <p>
+        On the floor lay another brass key: number 14. The count had continued while Vale was following the clues. Lady Eleanor Ashcroft had been found dead that morning.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(3)">← Chapter 3</button>
+
+        <button onclick="showChapter(5)">Chapter 5 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 5
+     ================================================== -->
+
+<section class="chapter" id="chapter5">
+
+    <div class="chapter-number">
+        CHAPTER V
+    </div>
+
+    <h2>Beneath the River</h2>
+
+    <div class="mystery-image">
+        TUNNEL
+    </div>
+
+    <p>
+        The map hidden in Silas Wren's notebook led Vale, Mara, and Inspector Rowan beneath the Thames. The abandoned tunnels were narrow, wet, and old enough to have disappeared from official maps.
+    </p>
+
+    <p>
+        The key numbered 14 opened an iron door at the end of the passage. Inside they found a hidden room covered with photographs, newspaper clippings, names, and evidence connected to Ashcroft.
+    </p>
+
+    <p>
+        At the centre lay a child's drawing of Ashcroft Hall. Seventeen figures stood outside the burning building. A smaller figure had been drawn separately. On the back were the words: THE MAN WHO SAVED ME LIED TO YOU.
+    </p>
+
+    <p>
+        The sentence awakened a memory Vale had buried. During the fire, he had carried a coughing child from the building. Then a man had taken her from him and promised to protect her. That man was Malcolm Voss, Vale's former mentor.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(4)">← Chapter 4</button>
+
+        <button onclick="showChapter(6)">Chapter 6 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 6
+     ================================================== -->
+
+<section class="chapter" id="chapter6">
+
+    <div class="chapter-number">
+        CHAPTER VI
+    </div>
+
+    <h2>The Mentor's Secret</h2>
+
+    <div class="mystery-image">
+        SECRET
+    </div>
+
+    <p>
+        Malcolm Voss had retired to a quiet coastal town, but he appeared to be expecting Vale. Under pressure, he admitted that he had taken Clara from Ashcroft and hidden her.
+    </p>
+
+    <p>
+        He explained that the people connected to the fire belonged to a secret organisation known as the Meridian Circle. Its members used wealth and influence to bury investigations and protect one another. Ashcroft Hall had been one of their meeting places.
+    </p>
+
+    <p>
+        Voss claimed that he had acted to protect Clara and Elias, but his answers left too many gaps. Before he could explain everything, gunfire shattered the windows. Voss was knocked unconscious during the attack.
+    </p>
+
+    <p>
+        Pinned to his chest was a card showing a clock set to midnight. Beneath it were two words: THIRTEEN REMAIN.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(5)">← Chapter 5</button>
+
+        <button onclick="showChapter(7)">Chapter 7 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 7
+     ================================================== -->
+
+<section class="chapter" id="chapter7">
+
+    <div class="chapter-number">
+        CHAPTER VII
+    </div>
+
+    <h2>The Gallery of Faces</h2>
+
+    <div class="mystery-image">
+        FACES
+    </div>
+
+    <p>
+        The next lead took Vale and Mara to the studio of Gabriel Thorn, a celebrated portrait painter. They found him alive but injured, surrounded by seventeen portraits of people connected to Ashcroft.
+    </p>
+
+    <p>
+        Four portraits had been destroyed: Wren, Holt, Lady Eleanor, and Grey. Thorn claimed that a woman had forced him to paint the faces. When Vale demanded a description, Thorn said she had Vale's eyes.
+    </p>
+
+    <p>
+        Her name, he whispered, was Clara Vale. The name meant nothing at first. Then Vale remembered an old locked box belonging to his mother. Inside he found a birth record for a younger sister: Clara Vale.
+    </p>
+
+    <p>
+        He had been told she died in infancy. Yet there was no death certificate. Instead, there was an adoption record signed by Malcolm Voss.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(6)">← Chapter 6</button>
+
+        <button onclick="showChapter(8)">Chapter 8 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 8
+     ================================================== -->
+
+<section class="chapter" id="chapter8">
+
+    <div class="chapter-number">
+        CHAPTER VIII
+    </div>
+
+    <h2>The Sister Who Never Died</h2>
+
+    <div class="mystery-image">
+        CLARA
+    </div>
+
+    <p>
+        Voss survived long enough to admit the truth. Clara Vale had lived. She had known Elias existed and, from a distance, had even helped him on several investigations by sending anonymous warnings and evidence.
+    </p>
+
+    <p>
+        Before Voss could reveal where she was, a letter arrived: COME TO ASHCROFT. ALONE. Mara refused to let Vale go by himself. Together they entered the rebuilt Ashcroft Hall, where a woman stood waiting in the old library.
+    </p>
+
+    <p>
+        She turned, and Vale recognised his own eyes. You took your time, she said. Brother.
+    </p>
+
+    <p>
+        Clara denied killing the people on the list. She claimed the Meridian Circle was destroying itself because someone possessed information powerful enough to make its members betray one another.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(7)">← Chapter 7</button>
+
+        <button onclick="showChapter(9)">Chapter 9 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 9
+     ================================================== -->
+
+<section class="chapter" id="chapter9">
+
+    <div class="chapter-number">
+        CHAPTER IX
+    </div>
+
+    <h2>Ashcroft Reborn</h2>
+
+    <div class="mystery-image">
+        HALL
+    </div>
+
+    <p>
+        The rebuilt Ashcroft Hall became the centre of the investigation. Clara explained that fear had turned the Meridian Circle against itself. Each surviving member possessed secrets, and someone was using those secrets to force a chain of betrayals.
+    </p>
+
+    <p>
+        Vale wanted the name of the first killer, but Clara could not give him one. Before their conversation could continue, an attack on Ashcroft forced them to flee through the old passages beneath the house.
+    </p>
+
+    <p>
+        Clara's final instruction, trust Mara, continued to trouble Vale. He knew Mara better than almost anyone in his life, yet the entire case had taught him that trust and knowledge were not always the same thing.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(8)">← Chapter 8</button>
+
+        <button onclick="showChapter(10)">Chapter 10 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 10
+     ================================================== -->
+
+<section class="chapter" id="chapter10">
+
+    <div class="chapter-number">
+        CHAPTER X
+    </div>
+
+    <h2>The Assistant's Past</h2>
+
+    <div class="mystery-image">
+        LETTER
+    </div>
+
+    <p>
+        Mara finally admitted that she had hidden part of her own history. Her father, Daniel Bell, had been a police officer connected to the Ashcroft investigation. He had disappeared after trying to expose the Meridian Circle.
+    </p>
+
+    <p>
+        Mara had sought work with Vale because she believed his father's investigation and her father's disappearance were connected. She had followed Vale before he hired her and had spent years quietly collecting information.
+    </p>
+
+    <p>
+        Then she produced a photograph taken at a railway station. The man in it was partially obscured, but his posture and build were unmistakable. Inspector Thomas Rowan.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(9)">← Chapter 9</button>
+
+        <button onclick="showChapter(11)">Chapter 11 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 11
+     ================================================== -->
+
+<section class="chapter" id="chapter11">
+
+    <div class="chapter-number">
+        CHAPTER XI
+    </div>
+
+    <h2>The Inspector's Betrayal</h2>
+
+    <div class="mystery-image">
+        BADGE
+    </div>
+
+    <p>
+        Rowan denied his involvement until Vale showed him the photograph. He finally admitted that he had accepted favours and information from the Meridian Circle after Ashcroft, though he claimed he had later tried to escape them.
+    </p>
+
+    <p>
+        He spoke of a mysterious figure called the Keeper, someone who possessed records of the Circle's crimes. In Rowan's office, Vale discovered a list containing five remaining names: Elias Vale, Clara Vale, Mara Bell, Malcolm Voss, and the Keeper.
+    </p>
+
+    <p>
+        Before Vale could force a complete confession, an explosion shook the police building. When the smoke cleared, Rowan had vanished. A message remained on the wall: FIVE REMAIN.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(10)">← Chapter 10</button>
+
+        <button onclick="showChapter(12)">Chapter 12 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 12
+     ================================================== -->
+
+<section class="chapter" id="chapter12">
+
+    <div class="chapter-number">
+        CHAPTER XII
+    </div>
+
+    <h2>The Keeper's Library</h2>
+
+    <div class="mystery-image">
+        LIBRARY
+    </div>
+
+    <p>
+        Clara led Vale and Mara beneath the old courthouse to a hidden library filled with evidence. Every shelf contained records of crimes, payments, false investigations, and names connected to the Meridian Circle.
+    </p>
+
+    <p>
+        There they met Ruth Mercer, Clara's mother, who had survived in secret for seventeen years. She was the Keeper.
+    </p>
+
+    <p>
+        Ruth insisted that she had not started the chain of murders. Before she could identify the person responsible, a shot rang through the library and she collapsed.
+    </p>
+
+    <p>
+        Vale pursued the attacker through the underground passages and caught only a brief glimpse of his face. It was Malcolm Voss.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(11)">← Chapter 11</button>
+
+        <button onclick="showChapter(13)">Chapter 13 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 13
+     ================================================== -->
+
+<section class="chapter" id="chapter13">
+
+    <div class="chapter-number">
+        CHAPTER XIII
+    </div>
+
+    <h2>The Last Lesson</h2>
+
+    <div class="mystery-image">
+        ROOFTOP
+    </div>
+
+    <p>
+        Vale found Malcolm Voss on the roof of the courthouse, surrounded by rain and darkness. Voss admitted that he had once belonged to the Meridian Circle. He claimed he had later turned against it after seeing what the organisation had done to Clara's family.
+    </p>
+
+    <p>
+        Vale wanted to know why Voss had hidden so much. Voss offered only one answer: weakness.
+    </p>
+
+    <p>
+        Before he could say more, another shot struck him. Vale caught him as he fell. Someone you trust, Voss whispered.
+    </p>
+
+    <p>
+        Then he gave one final clue: Bell Street.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(12)">← Chapter 12</button>
+
+        <button onclick="showChapter(14)">Chapter 14 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 14
+     ================================================== -->
+
+<section class="chapter" id="chapter14">
+
+    <div class="chapter-number">
+        CHAPTER XIV
+    </div>
+
+    <h2>The Empty House</h2>
+
+    <div class="mystery-image">
+        SILENCE
+    </div>
+
+    <p>
+        Bell Street stood open and silent. Inside, every photograph had been removed and every clock had stopped. On Vale's desk lay Wren's notebook, opened to a page he had never seen: THE DETECTIVE WAS ALWAYS PART OF THE CASE.
+    </p>
+
+    <p>
+        Behind a loose brick, Vale found an old report from his father's investigation. It named Daniel Bell as a man who had once worked for the Meridian Circle before turning against it.
+    </p>
+
+    <p>
+        Mara was devastated, but the report also showed that her father had tried to pass evidence to someone he trusted before his death. That evidence had eventually reached Mara, though she had not understood its importance.
+    </p>
+
+    <p>
+        Then Rowan appeared in the doorway. Alive. Armed. And apparently ready to reveal the final layer of the mystery.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(13)">← Chapter 13</button>
+
+        <button onclick="showChapter(15)">Chapter 15 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 15
+     ================================================== -->
+
+<section class="chapter" id="chapter15">
+
+    <div class="chapter-number">
+        CHAPTER XV
+    </div>
+
+    <h2>The Seventeenth Name</h2>
+
+    <div class="mystery-image">
+        PHOTOGRAPH
+    </div>
+
+    <p>
+        Rowan revealed that the list of seventeen had always been incomplete. There had been an eighteenth person whose name had been removed from every official record.
+    </p>
+
+    <p>
+        He handed Vale a photograph. The shadowed figure was Vale's mother. She had once belonged to the Meridian Circle but later turned against it. She had hidden Clara and tried to protect Elias.
+    </p>
+
+    <p>
+        Before Rowan could finish, a shot struck him. Clara stood behind him.
+    </p>
+
+    <p>
+        Vale and Clara faced one another among the evidence of their family's history. The countdown was almost complete, but Clara warned him that one name still remained.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(14)">← Chapter 14</button>
+
+        <button onclick="showChapter(16)">Chapter 16 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 16
+     ================================================== -->
+
+<section class="chapter" id="chapter16">
+
+    <div class="chapter-number">
+        CHAPTER XVI
+    </div>
+
+    <h2>The Ashcroft Cipher</h2>
+
+    <div class="mystery-image">
+        CIPHER
+    </div>
+
+    <p>
+        The answer had been hidden inside Silas Wren's first message: THE CLOCK HAS STOPPED.
+    </p>
+
+    <p>
+        Vale returned to Wren's shop and opened the great clock with the brass key numbered 17. Inside was a sealed cylinder containing a coded document.
+    </p>
+
+    <p>
+        Mara worked through the night to decipher it. The message had been written by Vale's mother and named the true architect of the Meridian Circle.
+    </p>
+
+    <p>
+        EDMUND VALE.
+    </p>
+
+    <p>
+        Elias's grandfather, believed to have died decades earlier.
+    </p>
+
+    <p>
+        The message contained a railway ticket to Edinburgh and one final instruction: COME HOME, ELIAS. THE CLOCK HAS BEEN COUNTING FOR YOU.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(15)">← Chapter 15</button>
+
+        <button onclick="showChapter(17)">Chapter 17 →</button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     CHAPTER 17
+     ================================================== -->
+
+<section class="chapter" id="chapter17">
+
+    <div class="chapter-number">
+        CHAPTER XVII
+    </div>
+
+    <h2>The Final Door</h2>
+
+    <div class="mystery-image">
+        THE END
+    </div>
+
+    <p>
+        The journey to Edinburgh took them through rain, darkness, and memories neither Elias nor Clara wished to revisit. At the end of a narrow street stood an old house. Inside waited Edmund Vale.
+    </p>
+
+    <p>
+        He was ninety years old and entirely unafraid. You have done well, he told Elias.
+    </p>
+
+    <p>
+        Vale demanded to know whether he had ordered the murders. Edmund answered that the Meridian Circle had turned against itself. Fear had made its members betray and destroy one another.
+    </p>
+
+    <p>
+        You created all of this, Vale said.
+    </p>
+
+    <p>
+        Yes, Edmund answered. To prove something.
+    </p>
+
+    <p>
+        What?
+    </p>
+
+    <p>
+        Edmund looked at his grandson. Truth is not discovered, Detective. It is chosen.
+    </p>
+
+    <p>
+        But Vale refused the lesson. He placed the records of the Meridian Circle before Edmund and called the police.
+    </p>
+
+    <p>
+        No, Vale said. Truth is what remains after every liar has finished speaking.
+    </p>
+
+    <p>
+        The records were eventually made public. The Meridian Circle was broken, and those who had spent years hiding behind wealth and influence were exposed.
+    </p>
+
+    <p>
+        Months later, Vale returned to Bell Street. Mara sat across from him, reading the morning newspaper. Clara had left London, though a letter arrived from her every year.
+    </p>
+
+    <p>
+        One morning, another envelope appeared on Vale's desk.
+    </p>
+
+    <p>
+        Inside were three words: ANOTHER CASE WAITS.
+    </p>
+
+    <p>
+        Outside, London was covered in morning fog. Somewhere in the distance, a clock began to strike.
+    </p>
+
+    <p>
+        Elias Vale picked up his coat.
+    </p>
+
+    <p>
+        Let's begin.
+    </p>
+
+    <div class="navigation">
+
+        <button onclick="showChapter(16)">
+            ← Chapter 16
+        </button>
+
+        <button onclick="goHome()">
+            Contents
+        </button>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+    THE ASHCROFT CIPHER • A DETECTIVE NOVEL
+
+</footer>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+     ================================================== -->
+
+<script>
+
+
+/* -----------------------------------------
+   SHOW SELECTED CHAPTER
+----------------------------------------- */
+
+function showChapter(number) {
+
+    /* Hide home page */
+
+    document.getElementById("home").style.display = "none";
+
+
+    /* Hide every chapter */
+
+    let chapters = document.querySelectorAll(".chapter");
+
+    chapters.forEach(function(chapter) {
+
+        chapter.classList.remove("active");
+
+    });
+
+
+    /* Show selected chapter */
+
+    document
+        .getElementById("chapter" + number)
+        .classList.add("active");
+
+
+    /* Scroll to top */
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* -----------------------------------------
+   RETURN TO HOME PAGE
+----------------------------------------- */
+
+function goHome() {
+
+    let chapters = document.querySelectorAll(".chapter");
+
+    chapters.forEach(function(chapter) {
+
+        chapter.classList.remove("active");
+
+    });
+
+
+    document.getElementById("home").style.display = "block";
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
